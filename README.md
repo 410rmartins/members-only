@@ -66,3 +66,12 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+## for the backend part with node.js
+
+you need to navigate to the backend folder inside the directoty and run:
+
+npm install
+
+to install all dependecies then use node server.js to start your server in localhost:8000
