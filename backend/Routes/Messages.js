@@ -20,3 +20,5 @@ router.route('/delete/:id').delete((req, res) => {
     .then(() => res.json("Message deleted"))
     .catch(err => res.status(400).json("Error: " +err));
 });
+
+module.exports = router;

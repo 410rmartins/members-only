@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class CreateUser extends Component {
 
@@ -48,16 +49,19 @@ export default class CreateUser extends Component {
     }
 
     onSubmit(event) {
-
+        event.preventDefault();
         const user = {
-            username: this.state.username,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            isMember: false
         }
 
         console.log(user);
-
-        window.location = "/";
+        axios.post("http://localhost:5000/users/register", user)
+            .then(res => console.log(res.data));
+        //window.location = "/";
     }
 
     render() {
@@ -90,7 +94,7 @@ export default class CreateUser extends Component {
 
                     <div className="form-group">
                         <label>Password: </label>
-                        <input type="text" required className="form-control"
+                        <input type="password" required className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword} />
                     </div>
