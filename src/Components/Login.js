@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 
 export default class Login extends Component{
     constructor(props){
@@ -34,8 +34,9 @@ export default class Login extends Component{
             email: this.state.email,
             password: this.state.password
         }
-
         console.log(auth);
+        axios.post("http://localhost:5000/users/login", auth)
+            .then(res => console.log(res.data));
     }
 
     render(){
