@@ -13,7 +13,6 @@ passport.use(new LocalStrategy({
             email: email
         }, function (err, user) {
 
-            console.log("jaksdhkjash");
             if (err) {
                 return done(err);
             }
@@ -34,10 +33,11 @@ passport.use(new LocalStrategy({
     })}));
 
 passport.serializeUser(function (user, done) {
-    done(null, user.id);
+    console.log("serielized");
+    done(null, user);
 });
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
+passport.deserializeUser(function (user, done) {
+    User.findById(user.id, function (err, user) {
         done(err, user);
     });
 });
@@ -46,9 +46,14 @@ passport.deserializeUser(function (id, done) {
 router.route('/login').post((req, res) => {
     const username = req.body.email;
     passport.authenticate('local', function (err, user, info) {
-        console.log(user);
         if(user === false) res.json(err);
-        else res.json(user);
+        else{
+            req.logIn(user, function (err) {
+                if (err) { return next(err); }
+                return res.json(user);
+            });
+            
+        } 
         
     })(req, res, (res)=> {
         res.json("NICE");
@@ -58,7 +63,6 @@ router.route('/login').post((req, res) => {
 
 router.get('/logout', function (req, res) {
     req.logout();
-
     res.redirect('/users/login');
 });
 

@@ -2,6 +2,16 @@ const router = require('express').Router();
 
 let Message = require('../Models/message.model');
 
+router.route('/list').get((req, res) => {
+    Message.find()
+        .then(messages => {
+            console.log(req.session);
+            res.json({message_list: messages, user:"asd"})
+            
+        })
+        .catch(err => res.status(400).json(err));
+});
+
 router.route('/create').post((req, res) => {
     const title = req.body.title;
     const text = req.body.text;

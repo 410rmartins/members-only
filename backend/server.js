@@ -17,13 +17,19 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(session({ secret: process.env.SECRET, resave: false, saveUninitialized: true }));
+app.use(express.static('public'));
+app.use(session({ 
+    secret: process.env.SECRET,
+    resave: false, 
+    saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(cookieParser(process.env.SECRET))
 app.use(express.json());
+
 
 //connect to db
 const db = process.env.DB_URI;

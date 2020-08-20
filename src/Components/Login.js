@@ -36,7 +36,13 @@ export default class Login extends Component{
         }
         console.log(auth);
         axios.post("http://localhost:5000/users/login", auth)
-            .then(res => console.log(res.data));
+            .then((res) => {
+                if (res.status === 400){
+                    window.location = "/login";
+                }else{
+                    window.location = "/";
+                }
+            });
     }
 
     render(){
